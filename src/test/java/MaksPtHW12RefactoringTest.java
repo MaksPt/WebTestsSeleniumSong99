@@ -85,18 +85,11 @@ public class MaksPtHW12RefactoringTest extends BaseTest {
         getDriver().get(URL);
 
         searchBrowseLanguages().click();
-        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='0.html']")).click();
+        getDriver().findElement(By.xpath("//a[@href='0.html']")).click();
 
-        int actualResult = 0;
-        for (int i = 1; i < 11; i++) {
-            int index = i + 1;
-            if (getDriver()
-                    .findElement(By.xpath("//table[@id='category']/tbody/tr[" + index + "]")).getTagName().equals("tr")) {
-                actualResult++;
-            }
-        }
+        List<WebElement> numbers = getDriver().findElements(By.xpath("//table[@id='category']/tbody/tr[@onmouseover]"));
 
-        Assert.assertEquals(actualResult, 10);
+        Assert.assertEquals(numbers.size(), 10);
     }
 
     @Test
