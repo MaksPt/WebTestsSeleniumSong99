@@ -4,6 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MaksPtHW12RefactoringTest extends BaseTest {
     private static final String URL = "http://www.99-bottles-of-beer.net/";
 
@@ -57,8 +60,13 @@ public class MaksPtHW12RefactoringTest extends BaseTest {
 
         searchBrowseLanguages().click();
 
-        Assert.assertEquals(getDriver().findElement(By.xpath("//table[@id ='category']/tbody/tr[1]")).getText(),
-                expectedResult.replace(",", ""));
+        List<WebElement> list = getDriver().findElements(By.xpath("//div[@id='main']//th"));
+        StringBuilder headers = new StringBuilder();
+        for (WebElement table : list) {
+            headers.append(table.getText()).append(", ");
+        }
+
+        Assert.assertEquals(headers.substring(0, headers.length() - 2), expectedResult);
     }
 
     @Test
@@ -231,4 +239,3 @@ public class MaksPtHW12RefactoringTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 }
-
